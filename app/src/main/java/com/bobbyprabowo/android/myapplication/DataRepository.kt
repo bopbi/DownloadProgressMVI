@@ -3,12 +3,12 @@ package com.bobbyprabowo.android.myapplication
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
-import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 
 class DataRepository(private val observerScheduler: Scheduler = Schedulers.io()) {
 
-    private val upstream: BehaviorProcessor<Map<String, Data>> = BehaviorProcessor.create()
+    private val upstream: BehaviorSubject<Map<String, Data>> = BehaviorSubject.create()
 
     init {
         val initialDataList = mutableMapOf<String, Data>()
@@ -43,6 +43,6 @@ class DataRepository(private val observerScheduler: Scheduler = Schedulers.io())
     }
 
     fun getDownloadState(): Observable<Map<String, Data>> {
-        return upstream.toObservable()
+        return upstream
     }
 }
