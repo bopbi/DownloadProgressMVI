@@ -7,7 +7,10 @@ class MainViewModelProvider: ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
-        return MainViewModel() as T
+        val dataRepository = DataRepository()
+        val getData = GetData(dataRepository)
+        val startProgress = StartProgress(dataRepository)
+        return MainViewModel(getData, startProgress) as T
     }
 
 }
